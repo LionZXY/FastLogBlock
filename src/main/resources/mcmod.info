@@ -1,0 +1,18 @@
+[
+  {
+    "modid": "fastlogblock",
+    "name": "Fast Log Block",
+    "description": "Mod for logging block place and break",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "",
+    "updateUrl": "",
+    "authorList": [
+      "LionZXYY"
+    ],
+    "credits": "The Forge and FML guys, for making Forge ;)",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]
