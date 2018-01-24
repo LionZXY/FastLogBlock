@@ -4,7 +4,6 @@ import jline.internal.Nullable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.world.BlockEvent;
-import ru.lionzxy.fastlogblock.io.log.BlockChangeType;
 
 import java.sql.Timestamp;
 
@@ -73,6 +72,10 @@ public class BlockChangeEventModel {
 
     public int getPosZ() {
         return posZ;
+    }
+
+    public BlockPos getBlockPos() {
+        return new BlockPos(posX, posY, posZ);
     }
 
     public ASCIString getNameblock() {

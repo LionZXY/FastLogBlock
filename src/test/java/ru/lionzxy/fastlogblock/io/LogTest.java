@@ -2,12 +2,13 @@ package ru.lionzxy.fastlogblock.io;
 
 import junit.framework.TestCase;
 import net.minecraft.util.math.BlockPos;
-import ru.lionzxy.fastlogblock.io.log.BlockChangeType;
+import ru.lionzxy.fastlogblock.models.BlockChangeType;
 import ru.lionzxy.fastlogblock.io.log.LogReader;
 import ru.lionzxy.fastlogblock.io.log.LogWritter;
 import ru.lionzxy.fastlogblock.io.mappers.BlockMapper;
 import ru.lionzxy.fastlogblock.io.mappers.NickMapper;
 import ru.lionzxy.fastlogblock.models.BlockChangeEventModel;
+import ru.lionzxy.fastlogblock.utils.TestUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,6 +23,7 @@ public class LogTest extends TestCase {
 
 
     private void before() throws IOException {
+        TestUtils.removeByteLog();
         new File("blockmap.bytelog").delete();
         new File("nickmap.bytelog").delete();
         logFile.delete();
@@ -79,6 +81,7 @@ public class LogTest extends TestCase {
         new File("blockmap.bytelog").delete();
         new File("nickmap.bytelog").delete();
         logFile.delete();
+        TestUtils.removeByteLog();
     }
 
 }

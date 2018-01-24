@@ -15,6 +15,14 @@ public class BlockHashFileSplitter extends IFileSplitter {
         super(modFolder);
     }
 
+    private static int hashByBlock(final BlockPos blockPos) {
+        final int signedHash = ((blockPos.getX() * MAGIC_HASH_NUMBER +
+                blockPos.getY()) * MAGIC_HASH_NUMBER +
+                blockPos.getZ()) * MAGIC_HASH_NUMBER;
+        final int hash = Math.abs(signedHash) % LogConfig.HASH_CONFIG.fileCount;
+        return hash < 0 ? 0 : hash;
+    }
+
     @Override
     public File[] getAllLogFile() {
         final List<File> fileList = new ArrayList<>(LogConfig.HASH_CONFIG.fileCount);
@@ -29,14 +37,6 @@ public class BlockHashFileSplitter extends IFileSplitter {
     @Override
     public File getFileByPos(final BlockPos blockPos) {
         return new File(String.format(LogConfig.HASH_CONFIG.fileNamePattern, hashByBlock(blockPos)));
-    }
-
-    private static int hashByBlock(final BlockPos blockPos) {
-        final int signedHash = ((blockPos.getX() * MAGIC_HASH_NUMBER +
-                blockPos.getY()) * MAGIC_HASH_NUMBER +
-                blockPos.getZ()) * MAGIC_HASH_NUMBER;
-        final int hash = Math.abs(signedHash) % LogConfig.HASH_CONFIG.fileCount;
-        return hash < 0 ? 0 : hash;
     }
 
 

@@ -3,9 +3,9 @@ package ru.lionzxy.fastlogblock.models;
 import java.nio.charset.Charset;
 
 public class ASCIString implements CharSequence {
+    private final static Charset asci = Charset.forName("ASCII");
     private final byte[] shortString;
     private int hashcode = -1;
-    private final static Charset asci = Charset.forName("ASCII");
 
     public ASCIString(final byte[] fatString) {
         shortString = fatString;

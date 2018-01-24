@@ -108,7 +108,7 @@ public class BlockMapper extends IterrateByteFile {
         try {
             readWriteLock.readLock().lock();
             blockToId.forEachEntry((blockname, id) -> {
-                if(!longSet.contains(id)){
+                if (!longSet.contains(id)) {
                     return true;
                 }
                 toReturn.put(id, (ASCIString) blockname);

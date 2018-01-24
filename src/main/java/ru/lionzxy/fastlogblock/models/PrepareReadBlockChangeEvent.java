@@ -3,7 +3,6 @@ package ru.lionzxy.fastlogblock.models;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.TLongObjectMap;
 import net.minecraft.util.math.BlockPos;
-import ru.lionzxy.fastlogblock.io.log.BlockChangeType;
 
 import java.sql.Timestamp;
 

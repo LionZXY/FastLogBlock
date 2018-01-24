@@ -13,10 +13,10 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 
 public class LogWritter {
-    private BufferedOutputStream os;
     private final BlockMapper blockMapper;
     private final NickMapper nickMapper;
     private final File file;
+    private BufferedOutputStream os;
 
     public LogWritter(final File file, final BlockMapper blockMapper, final NickMapper nickMapper) throws IOException {
         this.file = file;

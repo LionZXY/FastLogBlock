@@ -8,7 +8,6 @@ import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import ru.lionzxy.fastlogblock.config.LogConfig;
-import ru.lionzxy.fastlogblock.io.WriteRunnable;
 import ru.lionzxy.fastlogblock.models.BlockChangeEventModel;
 
 import java.io.File;
@@ -16,18 +15,17 @@ import java.io.IOException;
 
 @Mod(modid = FastLogBlock.MODID, version = FastLogBlock.VERSION)
 public class FastLogBlock {
-    @Mod.Instance
-    public static FastLogBlock fastLogBlock;
     public static final File rootMinecraftPath = new File("./");
-    public File logFolderFile;
     public static final String MODID = "fastlogblock";
     public static final String VERSION = "1.0";
+    @Mod.Instance
+    public static FastLogBlock fastLogBlock;
+    public File logFolderFile;
 
     @EventHandler
     public void init(final FMLInitializationEvent event) throws IOException {
         logFolderFile = new File(rootMinecraftPath, LogConfig.logFolderPath);
         FMLLog.log.info("FullPath: " + logFolderFile.getAbsolutePath());
-        final WriteRunnable writeRunnable = new WriteRunnable();
         MinecraftForge.EVENT_BUS.register(this);
     }
 

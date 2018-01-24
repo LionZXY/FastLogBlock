@@ -14,6 +14,7 @@ import ru.lionzxy.fastlogblock.io.mappers.BlockMapper;
 import ru.lionzxy.fastlogblock.io.mappers.NickMapper;
 import ru.lionzxy.fastlogblock.models.ASCIString;
 import ru.lionzxy.fastlogblock.models.BlockChangeEventModel;
+import ru.lionzxy.fastlogblock.models.BlockChangeType;
 import ru.lionzxy.fastlogblock.models.PrepareReadBlockChangeEvent;
 import ru.lionzxy.fastlogblock.utils.CollectionUtils;
 import ru.lionzxy.fastlogblock.utils.Constants;
@@ -38,7 +39,8 @@ public class LogReader extends IterrateByteFile {
 
 
     public List<BlockChangeEventModel> readEventByPos(final BlockPos blockPos) throws IOException {
-        FMLLog.log.warn("readEventByPos() has very long execution time!");
+        FMLLog.log.info("readEventByPos() for has very long execution time! Start measuring...");
+        long time = System.currentTimeMillis();
 
         final int needPosX = blockPos.getX();
         final int needPosY = blockPos.getY();
@@ -63,6 +65,7 @@ public class LogReader extends IterrateByteFile {
         final TIntObjectMap<ASCIString> idToNick = CollectionUtils.toHashMap(needNickName, id -> nickMapper.getById(id));
         final TLongObjectMap<ASCIString> idToBlock = blockMapper.idsToNames(needBlockName);
 
+        FMLLog.log.info("readEventByPos(): " + (System.currentTimeMillis() - time) + "ms");
         return prepareEvents.stream().map(pE -> pE.toBlockChangeEventModel(idToNick, idToBlock)).collect(Collectors.toList());
     }
 

@@ -14,23 +14,17 @@ import ru.lionzxy.fastlogblock.io.filesplitter.FileSplitterEnum;
 public class LogConfig {
     @Config.Comment("Filepath from minecraft root folder to block log path")
     public static final String logFolderPath = "./blocklog/";
-
-    @Config.Comment("File splitter type. SINGLE for single-file strategy, BLOCKHASH for file=HASH(BlockPos) strategy")
-    public static FileSplitterEnum fileSplitterType = FileSplitterEnum.BLOCKHASH;
-
-    @Config.Comment("Utils information for migration")
-    public static int logSchemeVersion = 1;
-
     @Config.Comment("Path to mapper file from logFolderPath")
     public static final String nickToIntFilePath = "nicktoid.prop";
-
+    public static final HashConfig HASH_CONFIG = new HashConfig();
+    @Config.Comment("File splitter type. SINGLE for single-file strategy, BLOCKHASH for file=HASH(BlockPos) strategy")
+    public static FileSplitterEnum fileSplitterType = FileSplitterEnum.BLOCKHASH;
+    @Config.Comment("Utils information for migration")
+    public static int logSchemeVersion = 1;
     @Config.Comment("Path to mapper file from logFolderPath")
     public static String blockToIntFilePath = "blocktoid.prop";
-
     @Config.Comment("Regular expression for block change event ignore")
     public static String[] ignoreBlockNamesRegExp = new String[]{"<minecraft:tallgrass:*>"};
-
-    public static final HashConfig HASH_CONFIG = new HashConfig();
 
     public static class HashConfig {
         @Config.Comment("Max logfile count")

@@ -1,4 +1,4 @@
-package ru.lionzxy.fastlogblock.io.log;
+package ru.lionzxy.fastlogblock.models;
 
 public enum BlockChangeType {
     INSERT(0),
@@ -11,10 +11,6 @@ public enum BlockChangeType {
         this.typeId = (byte) typeid;
     }
 
-    public byte getTypeId() {
-        return typeId;
-    }
-
     public static BlockChangeType valueOf(final byte typeId) {
         for (final BlockChangeType blockChangeType : BlockChangeType.values()) {
             if (blockChangeType.getTypeId() == typeId) {
@@ -22,5 +18,9 @@ public enum BlockChangeType {
             }
         }
         return null;
+    }
+
+    public byte getTypeId() {
+        return typeId;
     }
 }
