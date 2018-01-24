@@ -1,6 +1,7 @@
 package ru.lionzxy.fastlogblock.io.filesplitter;
 
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import java.io.File;
 
@@ -13,5 +14,5 @@ public abstract class IFileSplitter {
 
     public abstract File[] getAllLogFile();
 
-    public abstract File getFileByPos(BlockPos blockPos);
+    public abstract File getFileByPosAndWorld(BlockPos blockPos, World world);
 }

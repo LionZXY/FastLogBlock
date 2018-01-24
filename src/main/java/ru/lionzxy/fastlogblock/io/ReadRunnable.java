@@ -32,7 +32,7 @@ public class ReadRunnable implements Runnable {
             try {
                 final FindTask findTask = findTasks.take();
                 withoutWork.set(false);
-                final File file = fileSplitter.getFileByPos(findTask.getBlockPos());
+                final File file = fileSplitter.getFileByPosAndWorld(findTask.getBlockPos(), findTask.getWorld());
                 final LogReader logReader = new LogReader(file, blockMapper, nickMapper);
                 final List<BlockChangeEventModel> blockChangeEventModels = logReader.readEventByPos(findTask.getBlockPos());
                 findTask.getFindListener().onResultAsync(blockChangeEventModels);

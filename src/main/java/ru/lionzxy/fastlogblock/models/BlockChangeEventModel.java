@@ -4,6 +4,7 @@ import jline.internal.Nullable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.world.BlockEvent;
+import ru.lionzxy.fastlogblock.config.LogConfig;
 
 import java.sql.Timestamp;
 
@@ -59,7 +60,7 @@ public class BlockChangeEventModel {
 
         final Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
-        return new BlockChangeEventModel(blockEvent.getPos(), blockid, playername, timestamp, blockChangeType);
+        return new BlockChangeEventModelWithWorld(blockEvent.getPos(), blockid, playername, timestamp, blockChangeType, blockEvent.getWorld());
     }
 
     public int getPosX() {
@@ -92,6 +93,15 @@ public class BlockChangeEventModel {
 
     public Timestamp getTimestamp() {
         return timestamp;
+    }
+
+    public boolean isIgnore() {
+        for (String reg : LogConfig.ignoreBlockNamesRegExp) {
+            if (nameblock.toString().matches(reg)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

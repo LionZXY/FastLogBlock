@@ -4,7 +4,7 @@ import ru.lionzxy.fastlogblock.io.filesplitter.IFileSplitter;
 import ru.lionzxy.fastlogblock.io.log.LogWritter;
 import ru.lionzxy.fastlogblock.io.mappers.BlockMapper;
 import ru.lionzxy.fastlogblock.io.mappers.NickMapper;
-import ru.lionzxy.fastlogblock.models.BlockChangeEventModel;
+import ru.lionzxy.fastlogblock.models.BlockChangeEventModelWithWorld;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +15,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class WriteRunnable implements Runnable {
-    private final BlockingQueue<BlockChangeEventModel> eventQueue = new LinkedBlockingQueue<>();
+    private final BlockingQueue<BlockChangeEventModelWithWorld> eventQueue = new LinkedBlockingQueue<>();
     private final Map<File, LogWritter> writterMap = new HashMap<>();
     private final NickMapper nickMapper;
     private final BlockMapper blockMapper;
@@ -33,9 +33,9 @@ public class WriteRunnable implements Runnable {
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 do {
-                    final BlockChangeEventModel event = eventQueue.take();
+                    final BlockChangeEventModelWithWorld event = eventQueue.take();
                     withoutWork.set(false);
-                    final File file = fileSplitter.getFileByPos(event.getBlockPos());
+                    final File file = fileSplitter.getFileByPosAndWorld(event.getBlockPos(), event.getWorld());
                     LogWritter writter = writterMap.get(file);
                     if (writter == null) {
                         writter = new LogWritter(file, blockMapper, nickMapper);
@@ -58,7 +58,7 @@ public class WriteRunnable implements Runnable {
         }
     }
 
-    public void putEvent(BlockChangeEventModel blockChangeEventModel) {
+    public void putEvent(BlockChangeEventModelWithWorld blockChangeEventModel) {
         eventQueue.add(blockChangeEventModel);
     }
 

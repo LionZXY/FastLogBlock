@@ -2,10 +2,10 @@ package ru.lionzxy.fastlogblock.io;
 
 import junit.framework.TestCase;
 import net.minecraft.util.math.BlockPos;
-import ru.lionzxy.fastlogblock.config.LogConfig;
+import ru.lionzxy.fastlogblock.io.filesplitter.impl.BlockHashFileSplitter;
 import ru.lionzxy.fastlogblock.io.mappers.BlockMapper;
 import ru.lionzxy.fastlogblock.io.mappers.NickMapper;
-import ru.lionzxy.fastlogblock.models.BlockChangeEventModel;
+import ru.lionzxy.fastlogblock.models.BlockChangeEventModelWithWorld;
 import ru.lionzxy.fastlogblock.models.BlockChangeType;
 import ru.lionzxy.fastlogblock.models.FindTask;
 import ru.lionzxy.fastlogblock.utils.TestUtils;
@@ -27,32 +27,32 @@ public class WriteReadRunnableTest extends TestCase {
         TestUtils.removeByteLog();
         blockMapper = new BlockMapper(new File("blockmap.bytelog"));
         nickMapper = new NickMapper(new File("nickmap.bytelog"));
-        writeRunnable = new WriteRunnable(LogConfig.fileSplitterType.getFileSplitter(), nickMapper, blockMapper);
-        readRunnable = new ReadRunnable(LogConfig.fileSplitterType.getFileSplitter(), nickMapper, blockMapper);
+        writeRunnable = new WriteRunnable(new BlockHashFileSplitter(new File("./")), nickMapper, blockMapper);
+        readRunnable = new ReadRunnable(new BlockHashFileSplitter(new File("./")), nickMapper, blockMapper);
     }
 
     private void fillLog() {
-        writeRunnable.putEvent(new BlockChangeEventModel(new BlockPos(-2, 3, 5),
+        writeRunnable.putEvent(new BlockChangeEventModelWithWorld(new BlockPos(-2, 3, 5),
                 "<minecraft:block:1>", "LionZXY",
-                new Timestamp(System.currentTimeMillis()), BlockChangeType.INSERT));
-        writeRunnable.putEvent(new BlockChangeEventModel(new BlockPos(8, 9, 10),
+                new Timestamp(System.currentTimeMillis()), BlockChangeType.INSERT, null));
+        writeRunnable.putEvent(new BlockChangeEventModelWithWorld(new BlockPos(8, 9, 10),
                 "<mode:block>", "SomeNickname",
-                new Timestamp(System.currentTimeMillis()), BlockChangeType.INSERT));
-        writeRunnable.putEvent(new BlockChangeEventModel(new BlockPos(10, 3, 2),
+                new Timestamp(System.currentTimeMillis()), BlockChangeType.INSERT, null));
+        writeRunnable.putEvent(new BlockChangeEventModelWithWorld(new BlockPos(10, 3, 2),
                 "<mod:blok:2>", "LionZXY",
-                new Timestamp(System.currentTimeMillis()), BlockChangeType.INSERT));
-        writeRunnable.putEvent(new BlockChangeEventModel(new BlockPos(20, 40, 5),
+                new Timestamp(System.currentTimeMillis()), BlockChangeType.INSERT, null));
+        writeRunnable.putEvent(new BlockChangeEventModelWithWorld(new BlockPos(20, 40, 5),
                 "<somemode:block:3>", "SomeNickname2",
-                new Timestamp(System.currentTimeMillis()), BlockChangeType.INSERT));
-        writeRunnable.putEvent(new BlockChangeEventModel(new BlockPos(-2, 3, 5),
+                new Timestamp(System.currentTimeMillis()), BlockChangeType.INSERT, null));
+        writeRunnable.putEvent(new BlockChangeEventModelWithWorld(new BlockPos(-2, 3, 5),
                 "<oh:sad:0>", "Typical",
-                new Timestamp(System.currentTimeMillis()), BlockChangeType.INSERT));
-        writeRunnable.putEvent(new BlockChangeEventModel(new BlockPos(-2, 3, 5),
+                new Timestamp(System.currentTimeMillis()), BlockChangeType.INSERT, null));
+        writeRunnable.putEvent(new BlockChangeEventModelWithWorld(new BlockPos(-2, 3, 5),
                 "<minecraft:block:1>", "LionZXY",
-                new Timestamp(System.currentTimeMillis()), BlockChangeType.INSERT));
-        writeRunnable.putEvent(new BlockChangeEventModel(new BlockPos(-2, 3, 5),
+                new Timestamp(System.currentTimeMillis()), BlockChangeType.INSERT, null));
+        writeRunnable.putEvent(new BlockChangeEventModelWithWorld(new BlockPos(-2, 3, 5),
                 "<minecraft:block:1>", "LionZXY",
-                new Timestamp(System.currentTimeMillis()), BlockChangeType.INSERT));
+                new Timestamp(System.currentTimeMillis()), BlockChangeType.INSERT, null));
     }
 
     public void testRunnable() throws Exception {
@@ -70,7 +70,7 @@ public class WriteReadRunnableTest extends TestCase {
         final AtomicBoolean atomicBoolean = new AtomicBoolean(false);
         readRunnable.addTaskForSearch(new FindTask(new BlockPos(-2, 3, 5), list -> {
             atomicBoolean.set(4 == list.size());
-        }));
+        }, null));
 
         while (!readRunnable.isEmpty()) {
             Thread.sleep(100);
