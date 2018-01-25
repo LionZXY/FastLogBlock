@@ -42,6 +42,7 @@ public class LogWritter {
         byteBuffer.putInt(nickMapper.getOrPutUser(blockChangeEventModel.getPlayernick()));
         byteBuffer.putLong(blockMapper.getOrPutBlock(blockChangeEventModel.getNameblock()));
         byteBuffer.putLong(blockChangeEventModel.getTimestamp().getTime());
+        byteBuffer.put(Constants.DEVIDER_SYMBOL);
 
         try {
             os.write(byteBuffer.array());

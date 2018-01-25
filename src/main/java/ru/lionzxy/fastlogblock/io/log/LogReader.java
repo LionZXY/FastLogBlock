@@ -50,16 +50,20 @@ public class LogReader extends IterrateByteFile {
         final TLongSet needBlockName = new TLongHashSet();
         final TIntSet needNickName = new TIntHashSet();
         iterateByFile((byteList) -> {
-            final PrepareReadBlockChangeEvent prepareReadBlockChangeEvent = prepareOrNullByPos(byteList.toArray(),
-                    needPosX, needPosY, needPosZ);
-            if (prepareReadBlockChangeEvent == null) {
-                return;
+            try {
+                final PrepareReadBlockChangeEvent prepareReadBlockChangeEvent = prepareOrNullByPos(byteList.toArray(),
+                        needPosX, needPosY, needPosZ);
+                if (prepareReadBlockChangeEvent == null) {
+                    return;
+                }
+
+                needBlockName.add(prepareReadBlockChangeEvent.getBlockId());
+                needNickName.add(prepareReadBlockChangeEvent.getPlayerid());
+
+                prepareEvents.add(prepareReadBlockChangeEvent);
+            } catch (Exception e) {
+                FMLLog.log.warn("Your logfile is corrupt!", e);
             }
-
-            needBlockName.add(prepareReadBlockChangeEvent.getBlockId());
-            needNickName.add(prepareReadBlockChangeEvent.getPlayerid());
-
-            prepareEvents.add(prepareReadBlockChangeEvent);
         });
 
         final TIntObjectMap<ASCIString> idToNick = CollectionUtils.toHashMap(needNickName, id -> nickMapper.getById(id));
@@ -103,6 +107,6 @@ public class LogReader extends IterrateByteFile {
 
     @Override
     protected boolean checkLineEnd(final TByteArrayList arrayList, final byte endByte) {
-        return arrayList.size() == Constants.SIZE_LOGLINE;
+        return endByte == Constants.DEVIDER_SYMBOL;
     }
 }

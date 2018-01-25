@@ -9,7 +9,7 @@
 |:--------------------:|:------:|:------:|:------:|:--------------------------------------------------------------------------:|:--------:|:-------:|:---------:|
 | Field Length (bytes) | 4 byte | 4 byte | 4 byte | 1 byte ('0' for Remove, '1' for Insert, '2' for update, '100' for unknown) |  4 byte  |  8 byte |   8 byte  |
 
-Total: 33 bytes per line
+Total: 33 bytes per line (+1 byte for devider)
 
 Filename: /{save}/{world/dimension}/*.bytelog
 
