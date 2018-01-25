@@ -1,5 +1,6 @@
 package ru.lionzxy.fastlogblock.io;
 
+import net.minecraftforge.fml.common.FMLLog;
 import ru.lionzxy.fastlogblock.io.filesplitter.IFileSplitter;
 import ru.lionzxy.fastlogblock.io.log.LogWritter;
 import ru.lionzxy.fastlogblock.io.mappers.BlockMapper;
@@ -52,10 +53,19 @@ public class WriteRunnable implements Runnable {
                     }
                 });
                 withoutWork.set(true);
+            } catch (InterruptedException ie) {
+                FMLLog.log.info("Stop ReadRunnable");
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+        writterMap.values().forEach(it -> {
+            try {
+                it.sync();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public void putEvent(BlockChangeEventModelWithWorld blockChangeEventModel) {

@@ -1,6 +1,8 @@
 package ru.lionzxy.fastlogblock.handlers;
 
+import net.minecraftforge.fml.common.FMLLog;
 import ru.lionzxy.fastlogblock.config.LogConfig;
+import ru.lionzxy.fastlogblock.io.ReadRunnable;
 import ru.lionzxy.fastlogblock.io.WriteRunnable;
 import ru.lionzxy.fastlogblock.io.filesplitter.IFileSplitter;
 import ru.lionzxy.fastlogblock.io.filesplitter.impl.BlockHashFileSplitter;
@@ -61,6 +63,8 @@ public class SplitterRunnable implements Runnable {
                 processEvent(eventQueue.take());
                 nickMapper.sync();
                 blockMapper.sync();
+            } catch (InterruptedException ie) {
+                FMLLog.log.info("Stop SplitterRunnable");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -69,6 +73,10 @@ public class SplitterRunnable implements Runnable {
 
     public void addEvent(BlockChangeEventModelWithWorld blockChangeEventModelWithWorld) {
         eventQueue.add(blockChangeEventModelWithWorld);
+    }
+
+    public ReadRunnable getReadRunnable() {
+        return new ReadRunnable(fileSplitter, nickMapper, blockMapper);
     }
 
     private void processEvent(BlockChangeEventModelWithWorld event) {

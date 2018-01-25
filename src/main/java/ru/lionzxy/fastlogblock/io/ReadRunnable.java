@@ -1,5 +1,6 @@
 package ru.lionzxy.fastlogblock.io;
 
+import net.minecraftforge.fml.common.FMLLog;
 import ru.lionzxy.fastlogblock.io.filesplitter.IFileSplitter;
 import ru.lionzxy.fastlogblock.io.log.LogReader;
 import ru.lionzxy.fastlogblock.io.mappers.BlockMapper;
@@ -35,7 +36,9 @@ public class ReadRunnable implements Runnable {
                 final File file = fileSplitter.getFileByPosAndWorld(findTask.getBlockPos(), findTask.getWorld());
                 final LogReader logReader = new LogReader(file, blockMapper, nickMapper);
                 final List<BlockChangeEventModel> blockChangeEventModels = logReader.readEventByPos(findTask.getBlockPos());
-                findTask.getFindListener().onResultAsync(blockChangeEventModels);
+                findTask.getFindListener().onResultAsync(blockChangeEventModels, findTask.getEntityPlayer());
+            } catch (InterruptedException ie) {
+                FMLLog.log.info("Stop ReadRunnable");
             } catch (Exception e) {
                 e.printStackTrace();
             }

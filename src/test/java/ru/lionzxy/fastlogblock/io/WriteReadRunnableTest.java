@@ -68,7 +68,7 @@ public class WriteReadRunnableTest extends TestCase {
         }
 
         final AtomicBoolean atomicBoolean = new AtomicBoolean(false);
-        readRunnable.addTaskForSearch(new FindTask(new BlockPos(-2, 3, 5), list -> {
+        readRunnable.addTaskForSearch(new FindTask(new BlockPos(-2, 3, 5), (list, player) -> {
             atomicBoolean.set(4 == list.size());
         }, null));
 
