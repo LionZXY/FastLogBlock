@@ -9,6 +9,7 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import ru.lionzxy.fastlogblock.config.LogConfig;
 import ru.lionzxy.fastlogblock.io.ReadRunnable;
 import ru.lionzxy.fastlogblock.models.BlockChangeEventModel;
 import ru.lionzxy.fastlogblock.models.BlockChangeEventModelWithWorld;
@@ -40,26 +41,12 @@ public class EventHandlingManager {
 
     @SubscribeEvent
     public void onBlockBreak(final BlockEvent.BreakEvent event) {
-        final BlockChangeEventModelWithWorld blockChangeEventModel = (BlockChangeEventModelWithWorld) BlockChangeEventModel.getChangeEvent(event);
-
-        if (blockChangeEventModel == null) {
-            return;
-        }
-
-        FMLLog.log.debug(blockChangeEventModel.toString());
-        splitterRunnable.addEvent(blockChangeEventModel);
+        logEvent((BlockChangeEventModelWithWorld) BlockChangeEventModel.getChangeEvent(event), event);
     }
 
     @SubscribeEvent
     public void onBlockPlace(final BlockEvent.PlaceEvent event) {
-        final BlockChangeEventModelWithWorld blockChangeEventModel = (BlockChangeEventModelWithWorld) BlockChangeEventModel.getChangeEvent(event);
-
-        if (blockChangeEventModel == null) {
-            return;
-        }
-
-        FMLLog.log.debug(blockChangeEventModel.toString());
-        splitterRunnable.addEvent(blockChangeEventModel);
+        logEvent((BlockChangeEventModelWithWorld) BlockChangeEventModel.getChangeEvent(event), event);
     }
 
     @SubscribeEvent
@@ -118,5 +105,19 @@ public class EventHandlingManager {
                 textComponent = new TextComponentTranslation("message.fastlogblock:blockinfo.event.remove", (Object[]) args);
         }
         entityPlayer.sendMessage(textComponent);
+    }
+
+
+    private void logEvent(BlockChangeEventModelWithWorld changeEvent, BlockEvent event) {
+        if (!LogConfig.loggingEnable) {
+            return;
+        }
+
+        if (changeEvent == null) {
+            return;
+        }
+
+        FMLLog.log.debug(changeEvent.toString());
+        splitterRunnable.addEvent(changeEvent);
     }
 }

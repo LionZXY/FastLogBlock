@@ -1,6 +1,8 @@
 package ru.lionzxy.fastlogblock;
 
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.FMLLog;
@@ -34,6 +36,7 @@ public class FastLogBlock {
     @SubscribeEvent
     public void registerItems(RegistryEvent.Register<Item> event) {
         event.getRegistry().registerAll(infoitem);
+        ModelLoader.setCustomModelResourceLocation(infoitem, 0, new ModelResourceLocation(infoitem.getRegistryName(), "inventory"));
     }
 
     @EventHandler

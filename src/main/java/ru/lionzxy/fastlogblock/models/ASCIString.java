@@ -3,7 +3,7 @@ package ru.lionzxy.fastlogblock.models;
 import java.nio.charset.Charset;
 
 public class ASCIString implements CharSequence {
-    private final static Charset asci = Charset.forName("ASCII");
+    private final static Charset ASCI = Charset.forName("ASCII");
     private final byte[] shortString;
     private int hashcode = -1;
 
@@ -14,7 +14,7 @@ public class ASCIString implements CharSequence {
     }
 
     public ASCIString(final String fatString) {
-        shortString = fatString.getBytes(asci);
+        shortString = fatString.getBytes(ASCI);
 
         initHash();
     }
@@ -31,7 +31,7 @@ public class ASCIString implements CharSequence {
 
     @Override
     public CharSequence subSequence(final int start, final int end) {
-        return new String(shortString, asci).subSequence(start, end);
+        return new String(shortString, ASCI).subSequence(start, end);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class ASCIString implements CharSequence {
 
     @Override
     public String toString() {
-        return new String(shortString, asci);
+        return new String(shortString, ASCI);
     }
 
     public byte[] getShortString() {

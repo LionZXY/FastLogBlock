@@ -12,6 +12,7 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import ru.lionzxy.fastlogblock.FastLogBlock;
 import ru.lionzxy.fastlogblock.handlers.EventHandlingManager;
+import ru.lionzxy.fastlogblock.utils.MinecraftUtils;
 
 import java.util.Objects;
 
@@ -31,6 +32,10 @@ public class InfoItem extends Item {
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (worldIn.isRemote) {
+            return EnumActionResult.FAIL;
+        }
+        if (!MinecraftUtils.canShowLog(player)) {
+            player.sendMessage(new TextComponentTranslation("message.fastlogblock:blockinfo.event.permissionerror"));
             return EnumActionResult.FAIL;
         }
         player.sendMessage(new TextComponentTranslation("message.fastlogblock:blockinfo.start", pos.getX(), pos.getY(), pos.getZ()));

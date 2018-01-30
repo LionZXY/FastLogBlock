@@ -12,6 +12,8 @@ import ru.lionzxy.fastlogblock.io.filesplitter.FileSplitterEnum;
 @Config(modid = FastLogBlock.MODID)
 @Config.LangKey("fastlogblock.config.title")
 public class LogConfig {
+    @Config.Comment("Enable handling event")
+    public static boolean loggingEnable = true;
     @Config.Comment("Filepath from minecraft root folder to block log path")
     public static String logFolderPath = "blocklog";
     @Config.Comment("Path to nickname mapper file from logFolderPath")
@@ -27,6 +29,8 @@ public class LogConfig {
     public static int writeWorkersCount = 4;
     @Config.Comment("Regular expression for block change event ignore")
     public static String[] ignoreBlockNamesRegExp = new String[]{"<minecraft:tallgrass:*>"};
+    @Config.Comment("Permission level for show block log.")
+    public static boolean onlyForOP = true;
 
     public static class HashConfig {
         @Config.Comment("Max logfile count")
