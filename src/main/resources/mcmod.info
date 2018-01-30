@@ -5,13 +5,13 @@
     "description": "Mod for logging block place and break",
     "version": "${version}",
     "mcversion": "${mcversion}",
-    "url": "",
-    "updateUrl": "",
+    "url": "https://minecraft.curseforge.com/projects/fast-log-block",
+    "updateUrl": "https://minecraft.curseforge.com/projects/fast-log-block/files",
     "authorList": [
       "LionZXY"
     ],
     "credits": "The Forge and FML guys, for making Forge ;)",
-    "logoFile": "",
+    "logoFile": "https://image.ibb.co/iR8jM6/km.png",
     "screenshots": [],
     "dependencies": []
   }

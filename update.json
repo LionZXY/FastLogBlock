@@ -1,0 +1,9 @@
+{
+  "homepage": "https://minecraft.curseforge.com/projects/fast-log-block/",
+  "promos": {
+    "1.12.2-recommended": "1.0"
+  },
+  "1.12.2": {
+    "1.0": "Initial version"
+  }
+}

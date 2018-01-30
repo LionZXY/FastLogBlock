@@ -16,7 +16,7 @@ import ru.lionzxy.fastlogblock.ui.InfoItem;
 
 import java.io.IOException;
 
-@Mod(modid = FastLogBlock.MODID, version = FastLogBlock.VERSION, acceptableRemoteVersions = "*")
+@Mod(modid = FastLogBlock.MODID, version = FastLogBlock.VERSION)
 public class FastLogBlock {
     public static final String MODID = "fastlogblock";
     public static final String VERSION = "1.0";

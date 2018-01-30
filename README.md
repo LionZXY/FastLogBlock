@@ -1,5 +1,7 @@
 # Fast Log Block [![Build Status](https://travis-ci.org/LionZXY/FastLogBlock.svg?branch=master)](https://travis-ci.org/LionZXY/FastLogBlock) [![codecov](https://codecov.io/gh/LionZXY/FastLogBlock/branch/master/graph/badge.svg)](https://codecov.io/gh/LionZXY/FastLogBlock)
 
+This is minecraft mod for easy and fast logging block place and break. 
+
 ## Event multithread handling
 ![](https://image.ibb.co/hyaPRw/Fast_Log_Block.png)
 
@@ -28,4 +30,6 @@ Filename: blockmap.bytelog
 Total: ~ 10 bytes per Player
 
 Filename: nickmap.bytelog
+
+Thanks for item texture: https://github.com/CyanideX/Unity
 
