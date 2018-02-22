@@ -1,9 +1,10 @@
 {
   "homepage": "https://minecraft.curseforge.com/projects/fast-log-block/",
   "promos": {
-    "1.12.2-recommended": "1.0.1"
+    "1.12.2-recommended": "1.0.2"
   },
   "1.12.2": {
+    "1.0.2": "Fix server crash",
     "1.0.1": "Fix single splitter",
     "1.0": "Initial version"
   }
