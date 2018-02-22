@@ -1,9 +1,9 @@
 package ru.lionzxy.fastlogblock.handlers;
 
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.FMLLog;
@@ -80,7 +80,7 @@ public class EventHandlingManager {
     }
 
     private void notifyAboutEvent(BlockChangeEventModel blockEvent, EntityPlayer entityPlayer) {
-        final String dateformat = I18n.format("message.fastlogblock:blockinfo.event.dateformat");
+        final String dateformat = I18n.translateToLocal("message.fastlogblock:blockinfo.event.dateformat");
         final EntityPlayer playerEvent = entityPlayer.getEntityWorld().getPlayerEntityByUUID(UUID.fromString(blockEvent.getPlayernick().toString()));
         String nickname;
         if (playerEvent == null) {
