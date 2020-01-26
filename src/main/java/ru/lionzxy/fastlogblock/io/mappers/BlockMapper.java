@@ -57,8 +57,13 @@ public class BlockMapper extends IterrateByteFile {
     private void putFromByte(final TByteArrayList byteArrayList) {
         final ByteBuffer byteBuffer = ByteBuffer.wrap(byteArrayList.toArray());
         final long blockid = byteBuffer.getLong();
+        int nameSize = byteArrayList.size() - Long.BYTES - 1;
 
-        final byte[] tmpbuffer = new byte[byteArrayList.size() - Long.BYTES - 1];
+        if (nameSize <= 0) {
+            return;
+        }
+
+        final byte[] tmpbuffer = new byte[nameSize];
         byteBuffer.get(tmpbuffer);
         final ASCIString asciString = new ASCIString(tmpbuffer);
         blockToId.put(asciString, blockid);

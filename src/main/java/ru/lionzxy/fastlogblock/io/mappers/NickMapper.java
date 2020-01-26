@@ -34,8 +34,13 @@ public class NickMapper extends IterrateByteFile {
     private void putFromByte(final TByteArrayList byteArrayList) {
         final ByteBuffer byteBuffer = ByteBuffer.wrap(byteArrayList.toArray());
         final int userid = byteBuffer.getInt();
+        int nameSize = byteArrayList.size() - Integer.BYTES - 1;
 
-        final byte[] tmpbuffer = new byte[byteArrayList.size() - 5];
+        if (nameSize <= 0) {
+            return;
+        }
+
+        final byte[] tmpbuffer = new byte[nameSize];
         byteBuffer.get(tmpbuffer);
         final ASCIString asciString = new ASCIString(tmpbuffer);
         uuidToId.put(asciString, userid);
